@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Replay a Toronto subway elevator outage and see how it changes a step-free trip.">
+  <title>StepFree Toronto</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.mjs?v=3"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <span class="wordmark"><span class="brand-mark" aria-hidden="true"></span>StepFree <span>Toronto</span></span>
+      <a href="https://www.ttc.ca/en/accessibility/Easier-access-on-the-TTC/Elevators-and-Escalators">Official TTC status</a>
+    </div>
+  </header>
+  <main class="shell">
+    <div class="intro">
+      <p class="eyebrow">Toronto subway and light rail</p>
+      <h1>Take the step-free route<span>.</span></h1>
+      <p>Plan across the TTC rail network, replay an elevator outage, or watch your trip for live elevator alerts.</p>
+    </div>
+    <noscript>This replay requires JavaScript.</noscript>
+    <div class="workspace">
+      <section class="map-card" aria-labelledby="map-title">
+        <div class="map-header">
+          <h2 id="map-title">Route schematic</h2>
+          <span id="map-status" class="status">No simulated outage</span>
+        </div>
+        <div class="map-surface" role="group" tabindex="0" aria-label="Explore TTC stops" aria-describedby="map-help">
+          <canvas id="map" aria-hidden="true"></canvas>
+          <div id="station-marker" class="station-marker" aria-hidden="true" hidden></div>
+          <div id="station-tooltip" class="station-tooltip" aria-hidden="true" hidden>
+            <strong id="station-name"></strong>
+            <span id="station-lines"></span>
+            <span id="station-access"></span>
+          </div>
+          <div id="station-announcement" class="visually-hidden" role="status"></div>
+        </div>
+        <p id="map-help" class="map-help">Hover or tap a stop to inspect it. Use the arrow keys when the map is focused.</p>
+        <div id="map-legend" class="legend"></div>
+      </section>
+      <section class="trip-card" aria-labelledby="trip-title">
+        <h2 id="trip-title">Plan your trip</h2>
+        <div class="trip-fields">
+          <label>From <select id="origin" disabled></select></label>
+          <label>To <select id="destination" disabled></select></label>
+        </div>
+        <fieldset>
+          <legend>Bloor–Yonge replay</legend>
+          <div class="scenario-options">
+            <label><input type="radio" name="scenario" value="normal" checked><span>Normal</span></label>
+            <label><input type="radio" name="scenario" value="outage"><span>Outage</span></label>
+          </div>
+        </fieldset>
+        <button id="replay" type="button">Replay outage</button>
+        <div class="results">
+          <div id="summary" role="status" aria-atomic="true">
+            <p id="impact" class="eyebrow"></p>
+            <h3 id="estimate"></h3>
+            <p id="explanation"></p>
+          </div>
+          <ol id="directions" aria-label="Step-free directions"></ol>
+        </div>
+      </section>
+    </div>
+    <section class="alerts-card" aria-labelledby="alerts-title">
+      <div class="alerts-header">
+        <div>
+          <h2 id="alerts-title">Live TTC elevator alerts</h2>
+          <p id="feed-status">Checking the TTC feed…</p>
+        </div>
+        <div class="alert-actions">
+          <button class="secondary" id="watch" type="button">Watch this trip</button>
+          <button class="secondary" id="notification" type="button">Enable desktop alerts</button>
+        </div>
+      </div>
+      <p id="watch-status">Watch the stations where you board, transfer, or exit. Alerts check while this page is open.</p>
+      <p id="notice" role="status"></p>
+      <ul id="live-alerts" aria-label="Current elevator outages"></ul>
+    </section>
+    <footer>
+      <p>Routes use illustrative travel times and a recorded outage scenario. Live alerts show current TTC reports. Check official service before travelling.</p>
+      <a href="https://www.ttc.ca/routes-and-schedules">TTC routes and schedules</a>
+    </footer>
+  </main>
+</body>
+</html>
